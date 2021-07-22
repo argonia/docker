@@ -1,0 +1,16 @@
+version: "3"
+services:
+  mongo:
+    image: mongo:4.4
+    ports:
+      - 127.0.0.1:27017:27017
+    volumes:
+      - ./mongo/db:/data/db
+    
+  sonic:
+    image: valeriansaliou/sonic:v1.3.0
+    ports: 
+      - 127.0.0.1:1491:1491
+    volumes:
+      - ./sonic/config.cfg:/etc/sonic.cfg
+      - ./sonic/data:/var/lib/sonic
