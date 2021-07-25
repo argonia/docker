@@ -6,11 +6,10 @@ services:
       - 127.0.0.1:27017:27017
     volumes:
       - ./mongo/db:/data/db
-    
-  sonic:
-    image: valeriansaliou/sonic:v1.3.0
-    ports: 
-      - 127.0.0.1:1491:1491
+
+  meili:
+    image: getmeili/meilisearch:v0.20.0
+    ports:
+      - 127.0.0.1:7700:7700
     volumes:
-      - ./sonic/config.cfg:/etc/sonic.cfg
-      - ./sonic/data:/var/lib/sonic
+      - ./meili/data:/data.ms
