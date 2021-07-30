@@ -1,15 +1,42 @@
-version: "3"
+version: "3.8"
 services:
   mongo:
     image: mongo:4.4
+    restart: unless-stopped
     ports:
       - 127.0.0.1:27017:27017
     volumes:
       - ./mongo/db:/data/db
+    environment:
+      - "TZ=Asia/Tehran"
+    networks:
+      - db
 
   meili:
     image: getmeili/meilisearch:v0.20.0
+    restart: unless-stopped
     ports:
       - 127.0.0.1:7700:7700
     volumes:
       - ./meili/data:/data.ms
+    environment:
+      - "TZ=Asia/Tehran"
+    networks:
+      - db
+
+  socentt:
+    image: socentt:latest
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:3003:3003
+    env_file: .env
+    environment:
+      - "TZ=Asia/Tehran"
+    depends_on:
+      - mongo
+      - meili
+    networks:
+      - db
+
+networks:
+  db:
